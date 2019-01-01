@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const projectsRouter = require('./api/routes/projects');
+
+mongoose.connect('mongodb://' + process.env.DBLOGIN + '@ds143593.mlab.com:43593/dbapp', {
+    useNewUrlParser: true
+});
 
 //Middleware
 app.use(morgan('dev'));

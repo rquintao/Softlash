@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Project = require('../../models/project');
+const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
     res.status(200).json({
@@ -8,10 +10,17 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const project = {
+    const project = new Project({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         description: req.body.description
-    };
+    });
+
+    project.save().then(result => {
+        console.log(result);
+    }).catch(err => console.log(err)
+    );
+
     res.status(201).json({
         message: "Handling POST requests to projects",
         createdProj: project
