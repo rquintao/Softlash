@@ -1,5 +1,6 @@
 {
     "env":{
-        "DBLOGIN":"administrator:administrator1"
+        "DBLOGIN":"administrator:administrator1",
+        "http_proxy ": "http://192.168.1.1:8080"
     }
 }

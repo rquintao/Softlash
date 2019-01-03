@@ -6,7 +6,11 @@ const mongoose = require('mongoose');
 
 const projectsRouter = require('./api/routes/projects');
 
-mongoose.connect('mongodb://' + process.env.DBLOGIN + '@ds143593.mlab.com:43593/dbapp', {
+/*mongoose.connect('mongodb://' + process.env.DBLOGIN + '@ds143593.mlab.com:43593/dbapp', {
+    useNewUrlParser: true
+});*/
+
+mongoose.connect('mongodb://localhost:27017/Softlash', {
     useNewUrlParser: true
 });
 
