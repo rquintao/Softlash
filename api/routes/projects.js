@@ -78,8 +78,16 @@ router.patch('/:projID', (req, res, next) => {
 //DELETE A SPECIFIC PROJECT
 
 router.delete('/:projID', (req, res, next) => {
-    res.status(200).json({
-        message: "You deleted a product id",
+    const id = req.params.projID;
+
+    Project.deleteOne({_id: id}, (err)=>{
+        if(err){
+            return res.status(500).json({message:"Error deleting project"});
+        } else {
+            return res.status(200).json({
+                     message: "You deleted the project with the id:" + id,
+                   });
+        }
     });
 });
 
