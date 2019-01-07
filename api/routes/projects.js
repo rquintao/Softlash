@@ -67,7 +67,7 @@ router.get('/:projID', (req, res, next) => {
         });
 });
 
-//UPDATE A SPECIFIC PROJECT
+//UPDATE A SPECIFIC PROJECT (asd)
 
 router.patch('/:projID', (req, res, next) => {
     res.status(200).json({
