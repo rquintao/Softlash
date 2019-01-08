@@ -10,15 +10,12 @@ router.get('/', (req, res, next) => {
     Project.find({}, (err, projects) => {
         if(err) {
                 return res.status(500).json({
-                message: "Error in GET requests to projects",
+                    message: "Error getting projects",
                 });
         } else {
-                return res.status(200).json({
-                    message: "Handling GET requests to projects",
-                    projects: projects
-                });
+                return res.status(200).send(projects);
         }   
-    });
+    }).select('-__v');
 
   
 });
