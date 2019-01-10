@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
         } else {
                 return res.status(200).send(projects);
         }   
-    }).select('-__v');
+    });
 
   
 });
@@ -32,8 +32,8 @@ router.post('/', (req, res, next) => {
     project.save().then(result => {
         console.log(result);
         return res.status(201).json({
-            message: "Handling POST requests to projects",
-            createdProj: project
+            message: "Project successfully created",
+            project: result
         });
     }).catch(err => {
             console.log(err);
@@ -54,10 +54,7 @@ router.get('/:projID', (req, res, next) => {
         if(err) {
             return res.status(500).json({message:"Error getting project"});
         }else if (project!=null && !err){
-                return res.status(200).json({
-                    message:"Handling POST requests to projects/{id}",
-                    project: project
-                });
+                return res.status(200).send(project);
         } else 
                 return res.status(404).json({message:"Project not found"});
             
@@ -76,13 +73,17 @@ router.patch('/:projID', (req, res, next) => {
 
 router.delete('/:projID', (req, res, next) => {
     const id = req.params.projID;
-
-    Project.deleteOne({_id: id}, (err)=>{
+   
+    Project.deleteOne({_id: id}, (err, proj)=>{
+        console.log(proj);
         if(err){
             return res.status(500).json({message:"Error deleting project"});
-        } else {
+        } else if(proj.n === 0){
+            return res.status(404).json({message:"Project not found"});
+        }
+          else {
             return res.status(200).json({
-                     message: "You deleted the project with the id:" + id,
+                     message: "Successfully deleted project"
                    });
         }
     });
