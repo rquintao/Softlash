@@ -64,9 +64,31 @@ router.get('/:projID', (req, res, next) => {
 //UPDATE A SPECIFIC PROJECT (asd)
 
 router.patch('/:projID', (req, res, next) => {
-    res.status(200).json({
-        message: "You updated a product id",
+
+    const project = new Project({
+        _id: req.params.projID,
+        name: req.body.name,
+        description: req.body.description
     });
+
+    const query = {'_id': req.params.projID};
+
+    Project.findOneAndUpdate(query, project , {upsert:false}, (err, proj) =>{
+        if(err){
+            res.status(500).json({message:"Error updating project"});
+        } else if (proj!=null && !err){
+                Project.findById(req.params.projID, (error, p)=>{
+                    if(error) {
+                        return res.status(500).json({message:"Error getting project"});
+                    }else if (p!=null && !error){
+                        return res.status(200).send(p);
+                    }   
+                });     
+        } else
+            return res.status(404).json({message:"Project not found"});
+
+    });
+
 });
 
 //DELETE A SPECIFIC PROJECT
