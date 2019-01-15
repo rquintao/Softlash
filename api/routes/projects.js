@@ -61,7 +61,7 @@ router.get('/:projID', (req, res, next) => {
         });
 });
 
-//UPDATE A SPECIFIC PROJECT (asd)
+//UPDATE A SPECIFIC PROJECT
 
 router.patch('/:projID', (req, res, next) => {
 
